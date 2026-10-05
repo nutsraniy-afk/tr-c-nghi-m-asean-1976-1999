@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Khảo Cổ Trí Thức – Trắc nghiệm Lịch sử</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --giay: #f1e4c3;        /* giấy da */
+    --giay-dam: #e6d3a6;
+    --chu: #3b2415;         /* nâu sẫm */
+    --chu-nhat: #6b4a30;
+    --dong: #a8741f;        /* vàng đồng */
+    --do: #7a1f1f;          /* đỏ trầm */
+    --go: #5a3a22;          /* nâu gỗ */
+    --dung: #3f6b2f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    padding: 24px 16px 48px;
+    font-family: "Merriweather", "Times New Roman", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--chu);
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(168,116,31,.18), transparent 55%),
+      radial-gradient(ellipse at 85% 90%, rgba(122,31,31,.14), transparent 50%),
+      var(--giay);
+  }
+  h1, h2, h3 { font-family: "Playfair Display", "Times New Roman", Georgia, serif; margin: 0; line-height: 1.25; }
+  .khung {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 36px 32px;
+    background: linear-gradient(180deg, #f7edd2, var(--giay));
+    border: 3px double var(--dong);
+    outline: 6px solid var(--go);
+    outline-offset: 6px;
+    box-shadow: 0 10px 30px rgba(59,36,21,.35);
+  }
+  .man { display: none; }
+  .man.hien { display: block; }
+  .gach { height: 2px; margin: 18px auto; width: 60%; background: linear-gradient(90deg, transparent, var(--dong), transparent); border: 0; }
+
+  /* Màn 1 */
+  .tieu-de { text-align: center; font-size: clamp(2rem, 7vw, 3rem); font-weight: 800; color: var(--do); letter-spacing: .02em; }
+  .phu-de { text-align: center; color: var(--chu-nhat); font-style: italic; margin: 0; }
+  label { display: block; margin: 28px 0 8px; font-weight: 700; }
+  input[type=text] {
+    width: 100%; padding: 12px 14px;
+    font: inherit; color: var(--chu);
+    background: #fbf4df; border: 2px solid var(--go); border-radius: 2px;
+  }
+  .loi { color: var(--do); min-height: 1.6em; margin: 6px 0 0; font-size: .92rem; }
+
+  /* Nút */
+  button {
+    font: inherit; font-family: "Playfair Display", Georgia, serif; font-weight: 600; font-size: 1.05rem;
+    padding: 12px 28px; cursor: pointer;
+    color: #fbf1d6; background: var(--do);
+    border: 2px solid var(--dong); border-radius: 2px;
+    box-shadow: 0 3px 0 var(--go);
+    transition: transform .08s, box-shadow .08s, background .15s;
+  }
+  button:hover:not(:disabled) { background: #8f2727; }
+  button:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 var(--go); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.phu { background: transparent; color: var(--go); border-color: var(--go); }
+  button.phu:hover:not(:disabled) { background: var(--giay-dam); }
+  .hang-nut { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+  .hang-nut.phai { justify-content: flex-end; }
+  #man-ten button { display: block; margin: 22px auto 0; }
+  :focus-visible { outline: 3px solid var(--dong); outline-offset: 2px; }
+
+  /* Màn 2 */
+  .tien-do { display: flex; justify-content: space-between; align-items: center; color: var(--chu-nhat); font-size: .92rem; }
+  .thanh { height: 8px; margin: 8px 0 24px; background: var(--giay-dam); border: 1px solid var(--go); }
+  .thanh > div { height: 100%; width: 0; background: var(--dong); transition: width .3s; }
+  #cau-hoi { font-size: 1.4rem; margin-bottom: 20px; color: var(--chu); }
+  .dap-an {
+    display: flex; gap: 14px; align-items: flex-start; width: 100%;
+    margin: 0 0 12px; padding: 12px 14px; text-align: left;
+    font-family: inherit; font-weight: 400; font-size: 1rem; line-height: 1.6;
+    color: var(--chu); background: #fbf4df;
+    border: 2px solid var(--go); border-radius: 2px; box-shadow: none;
+  }
+  .dap-an:hover:not(:disabled) { background: var(--giay-dam); }
+  .dap-an .chu-cai {
+    flex: none; width: 32px; height: 32px; display: grid; place-items: center;
+    font-family: "Playfair Display", Georgia, serif; font-weight: 800;
+    color: var(--dong); border: 2px solid var(--dong); border-radius: 50%;
+  }
+  .dap-an.chon { background: var(--go); color: #fbf1d6; border-color: var(--chu); }
+  .dap-an.chon .chu-cai { background: var(--dong); color: var(--chu); border-color: #fbf1d6; }
+
+  /* Màn 3 */
+  #man-kq { text-align: center; }
+  .diem { font-family: "Playfair Display", Georgia, serif; font-size: clamp(2.6rem, 10vw, 4rem); font-weight: 800; color: var(--do); line-height: 1.1; margin: 10px 0 4px; }
+  #loi-khen { font-style: italic; color: var(--chu-nhat); margin: 0; }
+  #man-kq h2 { font-size: 1.5rem; margin: 30px 0 12px; color: var(--go); }
+  .bang-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; text-align: left; font-size: .95rem; }
+  th, td { padding: 10px 12px; border-bottom: 1px solid rgba(90,58,34,.35); }
+  th { font-family: "Playfair Display", Georgia, serif; color: #fbf1d6; background: var(--go); }
+  td.so, th.so { text-align: center; width: 64px; }
+  tr.toi td { background: rgba(168,116,31,.28); font-weight: 700; }
+  tr:nth-child(2) td:first-child, tr:nth-child(3) td:first-child, tr:nth-child(4) td:first-child { color: var(--do); font-weight: 700; }
+
+  @media (max-width: 520px) {
+    body { padding: 16px 10px 36px; font-size: 16px; }
+    .khung { padding: 24px 16px; outline-offset: 4px; }
+    button { width: 100%; }
+    .hang-nut { flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main class="khung">
+
+  <!-- MÀN HÌNH 1: GHI DANH -->
+  <section id="man-ten" class="man hien">
+    <h1 class="tieu-de">Khảo Cổ Trí Thức</h1>
+    <p class="phu-de">Thử tài hiểu biết về những trang sử xưa</p>
+    <hr class="gach">
+    <label for="o-ten">Danh tính của người dự thi</label>
+    <input type="text" id="o-ten" maxlength="30" placeholder="Nhập tên của bạn" autocomplete="off">
+    <p class="loi" id="loi-ten" role="alert"></p>
+    <button id="nut-bat-dau">Bắt đầu</button>
+  </section>
+
+  <!-- MÀN HÌNH 2: LÀM BÀI -->
+  <section id="man-bai" class="man">
+    <div class="tien-do">
+      <span id="chu-tien-do"></span>
+      <span id="chu-nguoi-choi"></span>
+    </div>
+    <div class="thanh"><div id="vach-tien-do"></div></div>
+    <h2 id="cau-hoi"></h2>
+    <div id="ds-dap-an"></div>
+    <div class="hang-nut phai">
+      <button id="nut-tiep" disabled>Tiếp tục</button>
+    </div>
+  </section>
+
+  <!-- MÀN HÌNH 3: KẾT QUẢ & BẢNG VÀNG -->
+  <section id="man-kq" class="man">
+    <h1 class="tieu-de">Kết Quả</h1>
+    <div class="diem" id="diem"></div>
+    <p id="loi-khen"></p>
+    <hr class="gach">
+    <h2>Bảng Vàng</h2>
+    <div class="bang-wrap">
+      <table>
+        <thead><tr><th class="so">Hạng</th><th>Tên</th><th class="so">Điểm</th></tr></thead>
+        <tbody id="bang-vang"></tbody>
+      </table>
+    </div>
+    <div class="hang-nut">
+      <button id="nut-thi-lai">Thi lại</button>
+      <button id="nut-dang-xuat" class="phu">Đăng xuất</button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* =====================================================================
+   ██████████████████████████████████████████████████████████████████
+   ██  PHẦN 1: DANH SÁCH CÂU HỎI – ĐÂY LÀ CHỖ BẠN CẦN CHỈNH SỬA  ██
+   ██████████████████████████████████████████████████████████████████
+
+   CÁCH THÊM CÂU HỎI (chỉ cần 3 bước):
+   1) Copy TOÀN BỘ khối câu hỏi mẫu, từ dấu "{" đến dấu "},"
+   2) Dán ngay bên dưới dòng "BẠN HÃY THÊM CÂU HỎI VÀO BÊN DƯỚI ĐOẠN NÀY"
+   3) Sửa lại nội dung bên trong dấu ngoặc kép "..."
+
+   ⚠ LƯU Ý QUAN TRỌNG:
+   - Giữ nguyên dấu ngoặc kép "...", dấu phẩy "," ở cuối mỗi dòng.
+   - Mỗi câu hỏi kết thúc bằng "}," (có dấu phẩy).
+   - "dapAnDung" chỉ điền MỘT chữ cái: "A", "B", "C" hoặc "D".
+   - Nếu trong nội dung có dấu ngoặc kép, hãy dùng dấu nháy đơn ' thay thế.
+   ===================================================================== */
+const DANH_SACH_CAU_HOI = [
+
+  // ==== BẠN HÃY THÊM CÂU HỎI VÀO BÊN DƯỚI ĐOẠN NÀY ====
+
+  {
+    cauHoi: "Vị vua nào đã dời đô từ Hoa Lư về Thăng Long vào năm 1010?",
+    dapAn: {
+      A: "Đinh Tiên Hoàng",
+      B: "Lý Thái Tổ",
+      C: "Trần Thái Tông",
+      D: "Lê Thánh Tông"
+    },
+    dapAnDung: "B"
+  },
+
+  // ==== BẠN HÃY THÊM CÂU HỎI VÀO PHÍA TRÊN ĐOẠN NÀY ====
+
+];
+
+/* =====================================================================
+   ██  PHẦN 2: CÀI ĐẶT CHUNG (có thể bỏ qua)  ██
+   ===================================================================== */
+const KHOA_LUU_TRU = "bangVangLichSu";   // tên nơi lưu dữ liệu trong trình duyệt
+const SO_NGUOI_HIEN_THI = 10;            // số người hiển thị trên Bảng Vàng
+
+/* =====================================================================
+   ██  PHẦN 3: MÃ XỬ LÝ – KHÔNG CẦN SỬA GÌ BÊN DƯỚI  ██
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const CHU_CAI = ["A", "B", "C", "D"];
+let tenNguoiChoi = "", viTri = 0, diem = 0, daChon = null;
+
+function hienMan(id) {
+  document.querySelectorAll(".man").forEach(m => m.classList.remove("hien"));
+  $(id).classList.add("hien");
+  window.scrollTo(0, 0);
+}
+
+/* ---- Màn 1 ---- */
+function batDau() {
+  const ten = $("o-ten").value.trim();
+  if (!ten) { $("loi-ten").textContent = "Vui lòng nhập tên trước khi bắt đầu."; $("o-ten").focus(); return; }
+  if (!DANH_SACH_CAU_HOI.length) { $("loi-ten").textContent = "Chưa có câu hỏi nào. Hãy thêm câu hỏi vào mã nguồn."; return; }
+  $("loi-ten").textContent = "";
+  tenNguoiChoi = ten;
+  lamLai();
+}
+function lamLai() {
+  viTri = 0; diem = 0; daChon = null;
+  $("chu-nguoi-choi").textContent = tenNguoiChoi;
+  hienMan("man-bai");
+  hienCauHoi();
+}
+
+/* ---- Màn 2 ---- */
+function hienCauHoi() {
+  const ch = DANH_SACH_CAU_HOI[viTri], tong = DANH_SACH_CAU_HOI.length;
+  daChon = null;
+  $("chu-tien-do").textContent = "Câu " + (viTri + 1) + " / " + tong;
+  $("vach-tien-do").style.width = (viTri / tong * 100) + "%";
+  $("cau-hoi").textContent = ch.cauHoi;
+  $("nut-tiep").disabled = true;
+  $("nut-tiep").textContent = (viTri === tong - 1) ? "Nộp bài" : "Tiếp tục";
+
+  const ds = $("ds-dap-an");
+  ds.textContent = "";
+  CHU_CAI.forEach(c => {
+    const b = document.createElement("button");
+    b.className = "dap-an";
+    b.type = "button";
+    const k = document.createElement("span"); k.className = "chu-cai"; k.textContent = c;
+    const t = document.createElement("span"); t.textContent = ch.dapAn[c];
+    b.append(k, t);
+    b.onclick = () => {
+      daChon = c;
+      ds.querySelectorAll(".dap-an").forEach(x => x.classList.remove("chon"));
+      b.classList.add("chon");
+      $("nut-tiep").disabled = false;
+    };
+    ds.appendChild(b);
+  });
+}
+function tiepTuc() {
+  if (!daChon) return;
+  if (daChon === DANH_SACH_CAU_HOI[viTri].dapAnDung.trim().toUpperCase()) diem++;
+  viTri++;
+  if (viTri < DANH_SACH_CAU_HOI.length) hienCauHoi(); else ketThuc();
+}
+
+/* ---- Màn 3 ---- */
+function docBangVang() {
+  try { return JSON.parse(localStorage.getItem(KHOA_LUU_TRU)) || []; } catch (e) { return []; }
+}
+function ketThuc() {
+  const tong = DANH_SACH_CAU_HOI.length;
+  const luot = { ten: tenNguoiChoi, diem: diem, tong: tong, thoiGian: Date.now() };
+  const ds = docBangVang();
+  ds.push(luot);
+  try { localStorage.setItem(KHOA_LUU_TRU, JSON.stringify(ds)); } catch (e) {}
+
+  $("diem").textContent = diem + " / " + tong;
+  const tyLe = diem / tong;
+  $("loi-khen").textContent = tyLe === 1 ? "Xuất sắc! Bạn là bậc thông thái của sử sách."
+    : tyLe >= 0.7 ? "Rất tốt! Kiến thức lịch sử của bạn khá vững vàng."
+    : tyLe >= 0.4 ? "Khá ổn. Hãy ôn lại sử sách để đạt điểm cao hơn."
+    : "Chưa đạt. Hãy thử lại để chinh phục Bảng Vàng.";
+
+  const xep = ds.slice().sort((a, b) => (b.diem / b.tong) - (a.diem / a.tong) || b.diem - a.diem || a.thoiGian - b.thoiGian);
+  const tb = $("bang-vang");
+  tb.textContent = "";
+  xep.slice(0, SO_NGUOI_HIEN_THI).forEach((x, i) => {
+    const tr = document.createElement("tr");
+    if (x.thoiGian === luot.thoiGian) tr.className = "toi";
+    [i + 1, x.ten, x.diem + " / " + x.tong].forEach((v, j) => {
+      const td = document.createElement("td");
+      if (j !== 1) td.className = "so";
+      td.textContent = v;
+      tr.appendChild(td);
+    });
+    tb.appendChild(tr);
+  });
+  hienMan("man-kq");
+}
+
+/* ---- Sự kiện ---- */
+$("nut-bat-dau").onclick = batDau;
+$("o-ten").addEventListener("keydown", e => { if (e.key === "Enter") batDau(); });
+$("nut-tiep").onclick = tiepTuc;
+$("nut-thi-lai").onclick = lamLai;
+$("nut-dang-xuat").onclick = () => { tenNguoiChoi = ""; $("o-ten").value = ""; hienMan("man-ten"); };
+</script>
+</body>
+</html>
